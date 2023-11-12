@@ -45,11 +45,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Workspace\\TextRPGGame\\TextRPGGame\\TextRPGGame.csproj",
+      "projectUniqueName": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
       "projectName": "TextRPGGame",
-      "projectPath": "D:\\Workspace\\TextRPGGame\\TextRPGGame\\TextRPGGame.csproj",
+      "projectPath": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
       "packagesPath": "C:\\Users\\nabida\\.nuget\\packages\\",
-      "outputPath": "D:\\Workspace\\TextRPGGame\\TextRPGGame\\obj\\",
+      "outputPath": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nabida\\AppData\\Roaming\\NuGet\\NuGet.Config",

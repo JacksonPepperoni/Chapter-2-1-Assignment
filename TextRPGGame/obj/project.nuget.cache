@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/QBJcHQ3I6eKek+feS7CR3O9XYVLXFhGL+CLr881dPvGppzP2yU5hWT2UVDhdJ9p02epLO6WFNbYYPU+YvEfjg==",
+  "dgSpecHash": "pm8TGlSUUislDo0QOD2zkq9p7dO/uDWOXrbnUoJCwMBV5hdqOTgzeL/ng2/H4SiCiGdDiGsZ6ZHcv7vdNX5gGw==",
   "success": true,
-  "projectFilePath": "D:\\Workspace\\TextRPGGame\\TextRPGGame\\TextRPGGame.csproj",
+  "projectFilePath": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nabida\\.nuget\\packages\\consoletables\\2.6.1\\consoletables.2.6.1.nupkg.sha512"
   ],
