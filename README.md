@@ -1,6 +1,5 @@
-# sparta_RPG
+# Chapter 2 프로그래밍기초 개인과제
+## 콘솔 RPG만들기
 
-kkkkkkkkkkkkkkk
-
-
+ㄴㅇㅁㅇㄴㅁㅇ
 --------
