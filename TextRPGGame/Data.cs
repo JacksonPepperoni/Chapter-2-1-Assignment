@@ -46,20 +46,20 @@ namespace TextRPGGame
                         {
                             case "장비":
                                 Equipment item1 = new Equipment();
-                                item1.Setting(int.Parse(data[0]), Item.Type.장비, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false);
-                              //  item1.id = int.Parse(data[0]);
+                                item1.Setting(int.Parse(data[0]), Item.Type.장비, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false, int.Parse(data[7]));
+                                item1.part = (Character.EquipParts)int.Parse(data[2]);
                                 itemData.Add(item1.id, item1);
                                 break;
 
                             case "소모품":
                                 Consumable item2 = new Consumable();
-                                item2.Setting(int.Parse(data[0]), Item.Type.소모품, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false);
+                                item2.Setting(int.Parse(data[0]), Item.Type.소모품, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false, int.Parse(data[7]));
                                 itemData.Add(item2.id, item2);
                                 break;
 
                             case "잡템":
                                 BasicItem item3 = new BasicItem();
-                                item3.Setting(int.Parse(data[0]), Item.Type.잡템, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false);
+                                item3.Setting(int.Parse(data[0]), Item.Type.잡템, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false, int.Parse(data[7]));
                                 itemData.Add(item3.id, item3);
                                 break;
                         }

@@ -56,6 +56,7 @@ namespace TextRPGGame
             maxSlot = 10;
 
             inventory = new InventorySlot[maxSlot];
+            equip = new Item[Enum.GetValues(typeof(EquipParts)).Length];
 
             for (int i = 0; i < inventory.Length; i++)
             {

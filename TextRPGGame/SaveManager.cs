@@ -18,14 +18,17 @@ namespace TextRPGGame
         string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         내문서위치
 
+        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\save.csv";
+
         파일명, (경로있으면 경로포함)
 
+        파일명만쓰면 bin\Debug\net6.0 폴더 속에 생긴다
 
         세이브파일 변조됐을때 어떻게 체크?
 
          */
 
-        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\save.csv";
+        public static string path = "save.csv";
 
         public static void Save()
         {

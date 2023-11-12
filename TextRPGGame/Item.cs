@@ -14,8 +14,11 @@
         public string comment;
         public int price;
         public bool isOverlap;
+        
+        public int capacity; // 회복량 뎀증 수치 임시
 
-        public void Setting(int idd, Item.Type typee, string namee, string comee, int pricc, bool over)
+
+        public void Setting(int idd, Item.Type typee, string namee, string comee, int pricc, bool over, int caaaaa)
         {
             id = idd;
             type = typee;
@@ -23,6 +26,7 @@
             comment = comee;
             price = pricc;
             isOverlap = over;
+            capacity = caaaaa;
         }
         public abstract bool Use(int num); // 누른 인벤칸번호 보내기
     }
@@ -30,8 +34,9 @@
 
     public class Equipment : Item
     {
-        public Character.EquipParts part { get; private set; }
+        public Character.EquipParts part;
 
+        
         public override bool Use(int num)
         {
             // 전투중이 아닐때만 가능하게
@@ -39,6 +44,7 @@
             if (GameManager.character.equip[(int)part] == null)
             {
                 GameManager.character.equip[(int)part] = this;
+                GameManager.character.DeleteItem(num);
             }
             else
             {
@@ -48,7 +54,6 @@
             }
 
             // 능력치 업다운
-
              return true;
         }
     }
@@ -59,7 +64,6 @@
         public override bool Use(int num)
         {
             // 아이템능력 반영시키기
-
             return GameManager.character.DeleteItem(num);
         }
     }

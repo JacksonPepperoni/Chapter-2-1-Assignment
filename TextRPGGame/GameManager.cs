@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.IO;
+using static TextRPGGame.Character;
 
 namespace TextRPGGame
 {
@@ -18,7 +20,7 @@ namespace TextRPGGame
 
             character = new Character();
 
-          //  Console.Clear();
+            //  Console.Clear();
             Console.WriteLine("텍스트 RPG 게임 테스트테스트");
 
             Console.WriteLine("\n");
@@ -116,10 +118,8 @@ namespace TextRPGGame
                     break;
                 case 3:
 
-                    break;
                 case 4:
 
-                    break;
                 case 5:
                     Map_Restaurant();
                     break;
@@ -143,9 +143,9 @@ namespace TextRPGGame
         {
             Console.Clear();
 
-            Console.WriteLine("상태 보기");
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.");
+            Console.WriteLine("[    캐릭터 정보    ]");
             Console.WriteLine();
+            Console.WriteLine($"이 름 : {character.name}");
             Console.WriteLine($"레 벨 : {character.level}");
             Console.WriteLine($"직 업 : {character.job.ToString()}");
             Console.WriteLine($"공격력 : {character.atk}");
@@ -153,6 +153,9 @@ namespace TextRPGGame
             Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp}");
             Console.WriteLine($"마 나 / 최대치 : {character.mp} / {character.maxMp}");
             Console.WriteLine($"소지금 : {character.gold}원");
+
+            Console.WriteLine($"경험치 : {character.exp}exp");
+
 
             Console.WriteLine("\n");
             Console.WriteLine("0.나가기");
@@ -172,16 +175,30 @@ namespace TextRPGGame
         {
             Console.Clear();
 
-            Console.WriteLine("인벤토리");
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
-            Console.WriteLine();
-            Console.WriteLine("[아이템 목록]");
 
-            
+            Console.WriteLine("[    장비창    ]");
+            Console.WriteLine();
+
+            for (int i = 0; i < character.equip.Length; i++)
+            {
+                if (character.equip[i] != null)
+                {
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name}");
+                }
+                else
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[    인벤토리    ]");
+            Console.WriteLine();
+
             for (int i = 0; i < character.inventory.Length; i++)
             {
                 if (character.inventory[i].item != null)
-                    Console.WriteLine($"{character.inventory[i].item.name} | {character.inventory[i].item.comment} |  {character.inventory[i].item.price} | {character.inventory[i].count}개");
+                    Console.WriteLine($"{character.inventory[i].item.name}| {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
+                else
+                    Console.WriteLine($"------------------------------------");
             }
 
             Console.WriteLine("\n");
@@ -193,11 +210,79 @@ namespace TextRPGGame
             switch (NextChoice(0, 1))
             {
                 case 1:
-                    ///////
+                    Inventory_Use();
                     break;
                 case 0:
                     Map_Village();
                     break;
+            }
+        }
+
+        static void Inventory_Use()
+        {
+            Console.Clear();
+
+            Console.WriteLine("[    장비창    ]");
+            Console.WriteLine();
+
+            for (int i = 0; i < character.equip.Length; i++)
+            {
+                if (character.equip[i] != null)
+                {
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name}");
+                }
+                else
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("[    인벤토리    ]");
+            Console.WriteLine();
+
+            for (int i = 0; i < character.inventory.Length; i++)
+            {
+                if (character.inventory[i].item != null)
+                    Console.WriteLine($"{i + 1}. {character.inventory[i].item.name}| {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
+                else
+                    Console.WriteLine($"{i + 1}. ------------------------------------");
+            }
+
+            Console.WriteLine("\n");
+            Console.WriteLine("사용할 아이템 번호를 입력해주세요");
+            Console.WriteLine("0.나가기");
+            Console.WriteLine();
+
+            Console.Write(">> ");
+
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int num))
+                {
+                    if (--num < 0)
+                    {
+                        Inventory();
+                        break;
+                    }
+
+                    if (num < character.inventory.Length)
+                    {
+                        if (character.inventory[num].item != null)
+                        {
+                            if (character.inventory[num].item.Use(num))
+                            {
+                                Inventory();
+                                break;
+                            }
+                        }
+                    }
+
+                    Console.WriteLine("아이템이 존재하지 않습니다.");
+
+                }
+                else
+                {
+                    Console.WriteLine("잘못된 입력입니다.");
+                }
             }
         }
 
@@ -246,7 +331,6 @@ namespace TextRPGGame
         }
 
 
-
         static void Map_Restaurant() // 식당
         {
             Console.Clear();
@@ -279,8 +363,6 @@ namespace TextRPGGame
 
             if (ok)
             {
-                Console.Clear();
-
                 character.hp = character.maxHp;
                 character.mp = character.maxMp;
 
