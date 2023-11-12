@@ -4,7 +4,7 @@ using System.IO;
 
 namespace TextRPGGame
 {
-    internal class Program
+    internal class GameManager
     {
         public static Character character; // 현재 캐릭터           
 
@@ -14,7 +14,8 @@ namespace TextRPGGame
 
         static void Main()
         {
-            Data.Init(); // 게임데이터 정리
+            Data.Init(); // 게임데이터 추가
+
             character = new Character();
 
           //  Console.Clear();
@@ -60,9 +61,7 @@ namespace TextRPGGame
         public static void CharacterGenerate()
         {
             Console.Clear();
-
             Console.WriteLine("캐릭터의 이름을 정해주세요. ( 10글자 이내 )");
-
             string name;
 
             while (true)
@@ -80,17 +79,17 @@ namespace TextRPGGame
         }
 
 
-        static void Map_Village()
+        public static void Map_Village()
         {
             Console.Clear();
 
-            Console.WriteLine("~ 스파르타 마을 ~");
+            Console.WriteLine("~~~~ 스파르타 마을 ~~~~");
             Console.WriteLine();
-            Console.WriteLine($"{character.name}님! 스파르타 마을에 오신 것을 환영합니다.");
+            Console.WriteLine($"{character.name}님! 스파르타 마을에 도착했습니다.");
 
             Console.WriteLine("\n");
             Console.WriteLine("1.촌장집");
-            Console.WriteLine("2.여관 (게임저장)");
+            Console.WriteLine("2.여관 (게임저장. 닉네임만 저장됩니다...)");
             Console.WriteLine("3.상점1");
             Console.WriteLine("4.상점2");
             Console.WriteLine("5.식당 (체력회복)");
@@ -98,7 +97,8 @@ namespace TextRPGGame
             Console.WriteLine("\n");
             Console.WriteLine("6.상태 보기");
             Console.WriteLine("7.인벤토리");
-            Console.WriteLine();
+
+            Console.WriteLine("\n");
             Console.WriteLine("8.치트 - 돈 치트");
             Console.WriteLine("9.치트 - 템 치트");
 
@@ -130,64 +130,14 @@ namespace TextRPGGame
                     Inventory();
                     break;
                 case 8:
-                    ShowMeTheMoney();
+                    Cheatkey.ShowMeTheMoney();
                     break;
                 case 9:
-                    ShowMeTheItem();
+                    Cheatkey.ShowMeTheItem();
                     break;
             }
         }
 
-        static void ShowMeTheMoney()
-        {
-            Console.Clear();
-            Console.WriteLine("돈을 얼마로 바꿀지 숫자만 적으세용");
-
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out int num))
-                {
-                    character.gold = num;
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("숫자만 입력!");
-                }
-            }
-
-            Map_Village();
-
-        }
-        static void ShowMeTheItem()
-        {
-            Console.Clear();
-            Console.WriteLine("추가할 템 id입력하세욤 있는템이면 인벤에 추가됨");
-
-            while (true)
-            {
-                if (int.TryParse(Console.ReadLine(), out int num))
-                {
-                    if (Data.itemData.ContainsKey(num))
-                    {
-                        character.AddItem(Data.itemData[num]);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("id 제대로입력!");
-
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("숫자만 입력!");
-                }
-            }
-
-            Map_Village();
-
-        }
 
         static void Status()
         {

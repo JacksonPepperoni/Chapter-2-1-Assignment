@@ -22,7 +22,7 @@ namespace TextRPGGame
         // csv 파일 읽고 게임 모든 템 딕셔너리에 전부 추가해야함.
 
 
-        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ItemData.csv";
+        public static string path = "ItemData.csv";
 
 
         public static void Init()
@@ -34,7 +34,6 @@ namespace TextRPGGame
             {
                 using (StreamReader sr = new StreamReader(new FileStream(path, FileMode.Open)))
                 {
-                
 
                     while (!sr.EndOfStream)
                     {
@@ -66,10 +65,9 @@ namespace TextRPGGame
                         }
 
                         // for문으로 계속 추가. id가 키값.
-                        //   Consumable item = new Consumable(); 타입이 뭐냐에 따라 클래스 다른거로
-                        //   item1.Setting(int.Parse(data[0]), Item.Type.장비, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false);
-                        //    item1.part = 무슨파츠인지;
+                        //    data[2] = 세부파츠 있는거 없는거 체크
                         // 카테고리 enum도 숫자로 적어야할듯
+                        // 코드중복들 하나로 못하나?
                     }
 
                 }

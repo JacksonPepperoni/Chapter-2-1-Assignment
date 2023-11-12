@@ -70,16 +70,22 @@ namespace TextRPGGame
         {
             if (slotCount < maxSlot)
             {
+                if (item.isOverlap)
+                {
+                    for (int i = 0; i < inventory.Length; i++)
+                    {
+                        if (inventory[i].item != null && inventory[i].item.id == item.id && item.isOverlap)
+                        {
+                            inventory[i].count++;
+                            return true;
+                        }
+                    }
+                }
+
                 for (int i = 0; i < inventory.Length; i++)
                 {
                     if (inventory[i].item == null)
                     {
-                        if (inventory[i].item.id == item.id && item.isOverlap)
-                        {
-                            inventory[i].count++;
-                            break;
-                        }
-
                         inventory[i].item = item;
                         inventory[i].count++;
                         slotCount++;
@@ -97,38 +103,35 @@ namespace TextRPGGame
 
         public bool DeleteItem(int num) //인벤토리에서 삭제
         {
-            if (inventory[num] != null)
+            if (inventory[num].item != null)
             {
                 inventory[num].count--;
 
                 if (inventory[num].count <= 0)
                 {
-                    inventory[num] = null;
+                    inventory[num].item = null;
+                    inventory[num].count = 0;
                     slotCount--;
                 }
 
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
 
         }
 
         public bool UseItem(int num) // 인벤토리에서 사용
         {
-            if (inventory[num] != null)
+            if (inventory[num].item != null)
             {
                 if (inventory[num].item.Use(num))
                     return DeleteItem(num);
                 else
                     return false;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
 

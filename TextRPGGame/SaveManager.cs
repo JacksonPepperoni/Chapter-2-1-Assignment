@@ -27,12 +27,11 @@ namespace TextRPGGame
 
         public static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\save.csv";
 
-        public static void Save() 
+        public static void Save()
         {
             using (StreamWriter sw = new StreamWriter(new FileStream(path, FileMode.Create)))
             {
-                sw.WriteLine(Program.character.name);
-
+                sw.WriteLine(GameManager.character.name);
                 /*  sw.WriteLine("캐릭터정보 전체");
                   sw.WriteLine("착용장비");
                   sw.WriteLine("인벤토리 템 id+소지갯수");
@@ -55,11 +54,10 @@ namespace TextRPGGame
 
                         for (int i = 0; i < data.Length; i++)
                         {
-                            Program.character.DefaultSetting(); // 임시. 이름만 저장됨
-                            Program.character.name = data[i];
+                            GameManager.character.DefaultSetting(); // 임시. 이름만 저장됨
+                            GameManager.character.name = data[i];
 
                         }
-
 
                         // Program.character.name = data[i];
 
