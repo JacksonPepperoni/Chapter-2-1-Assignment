@@ -1,0 +1,17 @@
+D:\Workspace\TextRPGGame\TextRPGGame\bin\Debug\net6.0\TextRPGGame.exe
+D:\Workspace\TextRPGGame\TextRPGGame\bin\Debug\net6.0\TextRPGGame.deps.json
+D:\Workspace\TextRPGGame\TextRPGGame\bin\Debug\net6.0\TextRPGGame.runtimeconfig.json
+D:\Workspace\TextRPGGame\TextRPGGame\bin\Debug\net6.0\TextRPGGame.dll
+D:\Workspace\TextRPGGame\TextRPGGame\bin\Debug\net6.0\TextRPGGame.pdb
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.AssemblyInfoInputs.cache
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.AssemblyInfo.cs
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.csproj.CoreCompileInputs.cache
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.dll
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\refint\TextRPGGame.dll
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.pdb
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.genruntimeconfig.cache
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\ref\TextRPGGame.dll
+D:\Workspace\TextRPGGame\TextRPGGame\bin\Debug\net6.0\ConsoleTables.dll
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.csproj.AssemblyReference.cache
+D:\Workspace\TextRPGGame\TextRPGGame\obj\Debug\net6.0\TextRPGGame.csproj.CopyComplete
