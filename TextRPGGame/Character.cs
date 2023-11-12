@@ -4,18 +4,15 @@ namespace TextRPGGame
 {
     public class Character
     {
-
         // hp나 exp같은거 전부 프로퍼티로만들고 자기안에서 최소 최대값 계산. 프로퍼티는 bool 반환못해?
 
-
-        public enum Parts
+        public enum EquipParts
         {
             무기,
             몸,
             장신구
         }
         public Item[] equip; //착용중인템 (int)enum으로 자리확인
-
         public InventorySlot[] inventory;
 
         public string name;
@@ -34,12 +31,14 @@ namespace TextRPGGame
 
         public Data.Jobs job;
 
-        public int slotCount = 0;
-        public int maxSlot = 10; // 인벤토리 크기
+        public int slotCount;
+        public int maxSlot; // 인벤토리 크기
 
-        public Character()
+
+        public void DefaultSetting()
         {
-            job = Data.Jobs.전사;
+            job = Data.Jobs.전사; // 직업마다 기본값 달라지도록
+
             level = 1;
             atk = 10;
             def = 5;
@@ -53,6 +52,9 @@ namespace TextRPGGame
             gold = 1500;
             exp = 0;
 
+            slotCount = 0;
+            maxSlot = 10;
+
             inventory = new InventorySlot[maxSlot];
 
             for (int i = 0; i < inventory.Length; i++)
@@ -64,33 +66,24 @@ namespace TextRPGGame
 
 
 
-
         public bool AddItem(Item item) //인벤토리에 추가
         {
             if (slotCount < maxSlot)
             {
-                if (item.isOverlap)
+                for (int i = 0; i < inventory.Length; i++)
                 {
-                    for (int i = 0; i < inventory.Length; i++)
+                    if (inventory[i].item == null)
                     {
-                        if (inventory[i].item.id == item.id)
+                        if (inventory[i].item.id == item.id && item.isOverlap)
                         {
                             inventory[i].count++;
                             break;
                         }
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < inventory.Length; i++)
-                    {
-                        if (inventory[i] == null)
-                        {
-                            inventory[i].item = item;
-                            inventory[i].count++;
-                            slotCount++;
-                            break;
-                        }
+
+                        inventory[i].item = item;
+                        inventory[i].count++;
+                        slotCount++;
+                        break;
                     }
                 }
 
@@ -123,7 +116,7 @@ namespace TextRPGGame
 
         }
 
-        public bool UseItem(int num)
+        public bool UseItem(int num) // 인벤토리에서 사용
         {
             if (inventory[num] != null)
             {
@@ -151,8 +144,6 @@ namespace TextRPGGame
             {
                 return false;
             }
-
-
         }
 
 
