@@ -140,9 +140,6 @@ namespace TextRPGGame
 
 
 
-
-
-
         static void Status()
         {
             
@@ -240,6 +237,7 @@ namespace TextRPGGame
             }
 
             Console.WriteLine("\n");
+            Console.WriteLine("[    인벤토리    ]");
             Console.WriteLine();
 
             for (int i = 0; i < character.inventory.Length; i++)
