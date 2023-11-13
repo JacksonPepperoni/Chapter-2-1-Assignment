@@ -139,8 +139,13 @@ namespace TextRPGGame
         }
 
 
+
+
+
+
         static void Status()
         {
+            
             Console.Clear();
 
             Console.WriteLine("[    캐릭터 정보    ]");
@@ -148,9 +153,9 @@ namespace TextRPGGame
             Console.WriteLine($"이 름 : {character.name}");
             Console.WriteLine($"레 벨 : {character.level}");
             Console.WriteLine($"직 업 : {character.job.ToString()}");
-            Console.WriteLine($"공격력 : {character.atk}");
-            Console.WriteLine($"방어력 : {character.def}");
-            Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp}");
+            Console.WriteLine($"공격력 : {character.atk} (+{character.atkBuff})"); 
+            Console.WriteLine($"방어력 : {character.def} (+{character.defBuff})");
+            Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp} (+{character.maxHpfBuff})");
             Console.WriteLine($"마 나 / 최대치 : {character.mp} / {character.maxMp}");
             Console.WriteLine($"경험치 : {character.exp}exp");
             Console.WriteLine($"소지금 : {character.gold}원");
@@ -228,7 +233,7 @@ namespace TextRPGGame
             {
                 if (character.equip[i] != null)
                 {
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.inventory[i].item.capacity}상승");
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.equip[i].capacity}상승");
                 }
                 else
                     Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");

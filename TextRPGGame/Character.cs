@@ -34,6 +34,10 @@ namespace TextRPGGame
         public int slotCount;
         public int maxSlot; // 인벤토리 크기
 
+        public int atkBuff; // 장비 버프용
+        public int defBuff;
+        public int maxHpfBuff;
+
 
         public void DefaultSetting()
         {
@@ -54,6 +58,11 @@ namespace TextRPGGame
 
             slotCount = 0;
             maxSlot = 10;
+
+            atkBuff = 0; 
+            defBuff = 0;
+            maxHpfBuff = 0;
+
 
             inventory = new InventorySlot[maxSlot];
             equip = new Item[Enum.GetValues(typeof(EquipParts)).Length];

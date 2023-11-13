@@ -14,7 +14,7 @@
         public string comment;
         public int price;
         public bool isOverlap;
-        
+
         public int capacity; // 회복량 뎀증 수치 임시
 
         public Character.EquipParts part; //나중에 장비클래스로옮기기
@@ -36,7 +36,7 @@
 
     public class Equipment : Item
     {
-        
+
         public override bool Use(int num)
         {
             // 전투중이 아닐때만 가능하게
@@ -50,49 +50,56 @@
                 switch (part)
                 {
                     case Character.EquipParts.무기:
+                        GameManager.character.atkBuff += capacity;
                         GameManager.character.atk += capacity;
                         break;
 
                     case Character.EquipParts.몸:
+                        GameManager.character.defBuff += capacity;
                         GameManager.character.def += capacity;
                         break;
 
                     case Character.EquipParts.장신구:
+                        GameManager.character.maxHpfBuff += capacity;
                         GameManager.character.maxHp += capacity;
                         break;
-
                 }
+
             }
             else
             {
-
-                switch (this.part)
+                switch (part)
                 {
                     case Character.EquipParts.무기:
-                        GameManager.character.atk += this.capacity;
+                        GameManager.character.atkBuff += capacity;
+                        GameManager.character.atk += capacity;
                         break;
 
                     case Character.EquipParts.몸:
-                        GameManager.character.def += this.capacity;
+                        GameManager.character.defBuff += capacity;
+                        GameManager.character.def += capacity;
                         break;
 
                     case Character.EquipParts.장신구:
-                        GameManager.character.maxHp += this.capacity;
+                        GameManager.character.maxHpfBuff += capacity;
+                        GameManager.character.maxHp += capacity;
                         break;
                 }
-
 
                 switch (GameManager.character.equip[(int)part].part) // 능력치 업다운
                 {
                     case Character.EquipParts.무기:
+                        GameManager.character.atkBuff -= GameManager.character.equip[(int)part].capacity;
                         GameManager.character.atk -= GameManager.character.equip[(int)part].capacity;
                         break;
 
                     case Character.EquipParts.몸:
+                        GameManager.character.defBuff -= GameManager.character.equip[(int)part].capacity;
                         GameManager.character.def -= GameManager.character.equip[(int)part].capacity;
                         break;
 
                     case Character.EquipParts.장신구:
+                        GameManager.character.maxHpfBuff -= GameManager.character.equip[(int)part].capacity;
                         GameManager.character.maxHp -= GameManager.character.equip[(int)part].capacity;
 
                         if (GameManager.character.maxHp < GameManager.character.hp)
@@ -106,8 +113,7 @@
                 GameManager.character.equip[(int)part] = this;
             }
 
-           
-             return true;
+            return true;
         }
     }
 
