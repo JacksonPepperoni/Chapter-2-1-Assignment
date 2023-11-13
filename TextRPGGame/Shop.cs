@@ -218,14 +218,16 @@ namespace TextRPGGame
                             }
                             else
                             {
-                                Console.WriteLine();
+                                Console.WriteLine("\n");
                                 Console.WriteLine("돈이 부족하잖아 이녀석아!");
                                 break;
 
                             }
                         }
                         else
-                        { Console.WriteLine("아이템이 존재하지 않습니다."); }
+                        { Console.WriteLine("아이템이 존재하지 않습니다.");
+                            break;
+                        }
 
                     }
                     else
@@ -237,7 +239,7 @@ namespace TextRPGGame
 
             }
 
-            Console.WriteLine();
+           
 
             Console.WriteLine("0.나가기");
             Console.WriteLine();
