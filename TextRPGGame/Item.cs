@@ -62,8 +62,6 @@
                         break;
 
                 }
-
-
             }
             else
             {
@@ -84,7 +82,7 @@
                 }
 
 
-                switch (GameManager.character.equip[(int)part].part)
+                switch (GameManager.character.equip[(int)part].part) // 능력치 업다운
                 {
                     case Character.EquipParts.무기:
                         GameManager.character.atk -= GameManager.character.equip[(int)part].capacity;
@@ -108,7 +106,7 @@
                 GameManager.character.equip[(int)part] = this;
             }
 
-            // 능력치 업다운
+           
              return true;
         }
     }
@@ -118,7 +116,9 @@
     {
         public override bool Use(int num)
         {
-            // 아이템능력 반영시키기
+            GameManager.character.hp = ((GameManager.character.hp += capacity) > GameManager.character.maxHp) ? GameManager.character.maxHp : GameManager.character.hp;
+
+            // 아이템능력 반영시키기 현재 모든 회복템은 hp회복만됨
             return GameManager.character.DeleteItem(num);
         }
     }

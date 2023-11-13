@@ -152,9 +152,8 @@ namespace TextRPGGame
             Console.WriteLine($"방어력 : {character.def}");
             Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp}");
             Console.WriteLine($"마 나 / 최대치 : {character.mp} / {character.maxMp}");
-            Console.WriteLine($"소지금 : {character.gold}원");
-
             Console.WriteLine($"경험치 : {character.exp}exp");
+            Console.WriteLine($"소지금 : {character.gold}원");
 
 
             Console.WriteLine("\n");
@@ -183,20 +182,20 @@ namespace TextRPGGame
             {
                 if (character.equip[i] != null)
                 {
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name}");
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.equip[i].capacity}상승");
                 }
                 else
                     Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");
             }
 
-            Console.WriteLine();
+            Console.WriteLine("\n");
             Console.WriteLine("[    인벤토리    ]");
             Console.WriteLine();
 
             for (int i = 0; i < character.inventory.Length; i++)
             {
                 if (character.inventory[i].item != null)
-                    Console.WriteLine($"{character.inventory[i].item.name}| {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
+                    Console.WriteLine($"{character.inventory[i].item.name} | 능력치 {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
                 else
                     Console.WriteLine($"------------------------------------");
             }
@@ -229,20 +228,19 @@ namespace TextRPGGame
             {
                 if (character.equip[i] != null)
                 {
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name}");
+                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.inventory[i].item.capacity}상승");
                 }
                 else
                     Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");
             }
 
-            Console.WriteLine();
-            Console.WriteLine("[    인벤토리    ]");
+            Console.WriteLine("\n");
             Console.WriteLine();
 
             for (int i = 0; i < character.inventory.Length; i++)
             {
                 if (character.inventory[i].item != null)
-                    Console.WriteLine($"{i + 1}. {character.inventory[i].item.name}| {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
+                    Console.WriteLine($"{i + 1}. {character.inventory[i].item.name} | 능력치 {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
                 else
                     Console.WriteLine($"{i + 1}. ------------------------------------");
             }
@@ -337,10 +335,12 @@ namespace TextRPGGame
 
             Console.WriteLine("르탄진사갈비점원 : 200원에 무한리필로 즐길 수 있습니다!");
             Console.WriteLine("\n");
+            Console.WriteLine($"현재 소지금 : {character.gold} ");
+            Console.WriteLine("\n");
 
             cost = -200;
 
-            Console.WriteLine($"1.이용한다 ({cost}원 소모)");
+            Console.WriteLine($"1.이용한다 ({cost}원 소모.)");
             Console.WriteLine("0.나가기");
             Console.WriteLine();
             Console.Write(">> ");

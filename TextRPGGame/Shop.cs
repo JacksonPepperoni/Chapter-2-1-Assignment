@@ -123,7 +123,7 @@ namespace TextRPGGame
         {
             Console.Clear();
 
-            Console.WriteLine("대장장이 : 힘썌고 강한 아침. 크고 아름다운 장비를 팔고있지");
+            Console.WriteLine("대장장이 : 어디 원하는걸 골라보슈!");
             Console.WriteLine();
             Console.WriteLine("[    판매목록    ]");
             Console.WriteLine();
@@ -160,7 +160,7 @@ namespace TextRPGGame
                     }
 
                     Console.Clear();
-                    Console.WriteLine("대장장이 : 힘썌고 강한 아침. 크고 아름다운 장비를 팔고있지");
+                    Console.WriteLine("대장장이 : 어디 원하는걸 골라보슈!");
                     Console.WriteLine();
                     Console.WriteLine("[    판매목록    ]");
                     Console.WriteLine();
