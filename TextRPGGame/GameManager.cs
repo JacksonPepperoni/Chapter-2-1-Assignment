@@ -17,6 +17,7 @@ namespace TextRPGGame
         static void Main()
         {
             Data.Init(); // 게임데이터 추가
+            Shop.Init();
 
             character = new Character();
 
@@ -91,10 +92,10 @@ namespace TextRPGGame
 
             Console.WriteLine("\n");
             Console.WriteLine("1.촌장집");
-            Console.WriteLine("2.여관 (게임저장. 닉네임만 저장됩니다...)");
-            Console.WriteLine("3.상점1");
-            Console.WriteLine("4.상점2");
-            Console.WriteLine("5.식당 (체력회복)");
+            Console.WriteLine("2.여관 (닉네임만 저장)");
+            Console.WriteLine("3.장비상점");
+            Console.WriteLine("4.약국");
+            Console.WriteLine("5.식당");
 
             Console.WriteLine("\n");
             Console.WriteLine("6.상태 보기");
@@ -117,9 +118,11 @@ namespace TextRPGGame
                     Save_Use();
                     break;
                 case 3:
-
+                    Shop.Shop_Epuip();
+                    break;
                 case 4:
-
+                   // Shop.Shop_Consume();
+                    break;
                 case 5:
                     Map_Restaurant();
                     break;
@@ -392,7 +395,7 @@ namespace TextRPGGame
         }
 
 
-        static int NextChoice(int min, int max) // 최대값 포함됨
+        public static int NextChoice(int min, int max) // 최대값 포함됨
         {
             while (true)
             {

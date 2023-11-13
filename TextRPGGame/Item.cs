@@ -17,6 +17,8 @@
         
         public int capacity; // 회복량 뎀증 수치 임시
 
+        public Character.EquipParts part; //나중에 장비클래스로옮기기
+
 
         public void Setting(int idd, Item.Type typee, string namee, string comee, int pricc, bool over, int caaaaa)
         {
@@ -34,8 +36,6 @@
 
     public class Equipment : Item
     {
-        public Character.EquipParts part;
-
         
         public override bool Use(int num)
         {
@@ -45,9 +45,64 @@
             {
                 GameManager.character.equip[(int)part] = this;
                 GameManager.character.DeleteItem(num);
+
+
+                switch (part)
+                {
+                    case Character.EquipParts.무기:
+                        GameManager.character.atk += capacity;
+                        break;
+
+                    case Character.EquipParts.몸:
+                        GameManager.character.def += capacity;
+                        break;
+
+                    case Character.EquipParts.장신구:
+                        GameManager.character.maxHp += capacity;
+                        break;
+
+                }
+
+
             }
             else
             {
+
+                switch (this.part)
+                {
+                    case Character.EquipParts.무기:
+                        GameManager.character.atk += this.capacity;
+                        break;
+
+                    case Character.EquipParts.몸:
+                        GameManager.character.def += this.capacity;
+                        break;
+
+                    case Character.EquipParts.장신구:
+                        GameManager.character.maxHp += this.capacity;
+                        break;
+                }
+
+
+                switch (GameManager.character.equip[(int)part].part)
+                {
+                    case Character.EquipParts.무기:
+                        GameManager.character.atk -= GameManager.character.equip[(int)part].capacity;
+                        break;
+
+                    case Character.EquipParts.몸:
+                        GameManager.character.def -= GameManager.character.equip[(int)part].capacity;
+                        break;
+
+                    case Character.EquipParts.장신구:
+                        GameManager.character.maxHp -= GameManager.character.equip[(int)part].capacity;
+
+                        if (GameManager.character.maxHp < GameManager.character.hp)
+                        { GameManager.character.hp = GameManager.character.maxHp; }
+                        break;
+                }
+
+
                 GameManager.character.DeleteItem(num);
                 GameManager.character.AddItem(GameManager.character.equip[(int)part]);
                 GameManager.character.equip[(int)part] = this;
