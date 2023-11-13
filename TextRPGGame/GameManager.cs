@@ -94,7 +94,7 @@ namespace TextRPGGame
             Console.WriteLine("1.촌장집");
             Console.WriteLine("2.여관 (닉네임만 저장)");
             Console.WriteLine("3.장비상점");
-            Console.WriteLine("4.약국");
+           // Console.WriteLine("4.약국");
             Console.WriteLine("5.식당");
 
             Console.WriteLine("\n");
@@ -119,9 +119,6 @@ namespace TextRPGGame
                     break;
                 case 3:
                     Shop.Shop_Epuip();
-                    break;
-                case 4:
-                   // Shop.Shop_Consume();
                     break;
                 case 5:
                     Map_Restaurant();
