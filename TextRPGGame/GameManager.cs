@@ -18,7 +18,8 @@
             Console.Clear();
             Console.WriteLine(" ~~~ 텍스트 RPG 게임 테스트테스트 ~~~ ");
             Console.WriteLine("\n");
-    
+            Thread.Sleep(1000);  // 1초 대기
+
 
             Console.WriteLine("1.처음부터");
 
@@ -87,7 +88,7 @@
             Console.WriteLine("1.촌장집");
             Console.WriteLine("2.여관 (닉네임만 저장)");
             Console.WriteLine("3.장비상점");
-            Console.WriteLine("4.약국 (미완성. 장비상점열립니다)");
+            Console.WriteLine("4.고물상");
             Console.WriteLine("5.식당");
 
             Console.WriteLine("\n");
@@ -112,7 +113,7 @@
                 case 3:
                     Shop.Visit(Shop.ShopName.장비상점);
                     break;
-                case 4:  Shop.Visit(Shop.ShopName.장비상점);
+                case 4:  Shop.Sell();
                     //    Shop.Visit(Shop.ShopName.물약상점);
                     break;
                 case 5:
@@ -246,7 +247,6 @@
                     Equip_Use();
                     break;
                 case 0:
-                default:
                     Map_Village();
                     break;
             }
@@ -277,7 +277,7 @@
                     {
                         if (character.inventory.Use(num))
                         {
-                            Inventory();
+                            Inventory_Use();
                             break;
                         }
                     }
@@ -338,7 +338,7 @@
             Console.WriteLine("르탄진사갈비점원 : 200원에 무한리필로 즐길 수 있습니다!");
             Console.WriteLine("\n");
             Console.WriteLine($"현재 소지금 : {character.gold} ");
-            Console.WriteLine("\n");
+            Console.WriteLine();
 
             cost = -200;
 
@@ -367,11 +367,12 @@
             {
                 character.hp = character.maxHp;
                 character.mp = character.maxMp;
-
+                Console.WriteLine("르탄진사갈비점원 : 또 방문해주세요!");
+                Console.WriteLine();
                 Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
                 Console.WriteLine($"현재 소지금 : {character.gold} ( {cost}원 )");
-                Console.WriteLine();
-                Console.WriteLine("르탄진사갈비점원 : 또 방문해주세요!");
+               
+               
             }
             else
             {

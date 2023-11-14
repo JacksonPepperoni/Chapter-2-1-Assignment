@@ -79,14 +79,16 @@
             for (int i = 0; i < itemCatalog.Length; i++)
             {
                 if (itemCatalog[i].item != null)
-                    Console.WriteLine($"{i+1}. {(itemCatalog[i].item.part).ToString()} | {itemCatalog[i].item.name} | 능력치 : {itemCatalog[i].item.capacity} | {itemCatalog[i].item.comment} | {itemCatalog[i].item.price}원 | {itemCatalog[i].count}개");
+                    Console.WriteLine($"{i + 1}. {(itemCatalog[i].item.part).ToString()} | {itemCatalog[i].item.name} | 능력치 : {itemCatalog[i].item.capacity} | {itemCatalog[i].item.comment} | {itemCatalog[i].item.price}원 | {itemCatalog[i].count}개");
                 else
-                    Console.WriteLine($"{i+1}. -----------------------  품절  -----------------------");
+                    Console.WriteLine($"{i + 1}. -----------------------  품절  -----------------------");
             }
 
             Console.WriteLine("\n");
 
         }
+
+
 
         static public void Visit(ShopName name)
         {
@@ -132,7 +134,7 @@
          
          */
 
-        static void Open() 
+        static void Open()
         {
             Console.Clear();
             Console.WriteLine("대장장이 : 힘썌고 강한 아침. 크고 아름다운 장비를 팔고있지");
@@ -235,7 +237,7 @@
                         {
                             Console.WriteLine("\n");
                             Console.WriteLine("아이템이 존재하지 않습니다.");
-                           continue;
+                            continue;
                         }
 
                     }
@@ -260,6 +262,134 @@
                     break;
             }
         }
+
+
+
+        static public void Sell() // 내템 판매화면 실험용
+        {
+            Console.Clear();
+            Console.WriteLine("고물상 : 아무 물건이나 싸게싸게 받습니다 급처템 삽니다");
+            SellScreen();
+
+            Console.WriteLine("1.내 아이템 판매하기");
+            Console.WriteLine("0.나가기");
+            Console.WriteLine();
+            Console.Write(">> ");
+
+            switch (GameManager.NextChoice(0, 1))
+            {
+                case 1:
+                    Sell_Use();
+                    break;
+                case 0:
+                    GameManager.Map_Village();
+                    break;
+            }
+
+
+        }
+
+        static public void Sell_Use()
+        {
+            Console.Clear();
+            Console.WriteLine("고물상 : 아무 물건이나 싸게싸게 받습니다 급처템 삽니다");
+            SellScreen();
+
+            Console.WriteLine("구매할 아이템의 숫자를 적고 엔터를 눌러주세요");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.Write(">> ");
+
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int num))
+                {
+                    if (--num < 0)
+                    {
+                        Sell();
+                        break;
+                    }
+
+                    if (num < GameManager.character.inventory.slots.Length)
+                    {
+                        if (GameManager.character.inventory.slots[num].item != null)
+                        {
+                            int i = GameManager.character.inventory.slots[num].item.id;
+                            GameManager.character.inventory.Delete(GameManager.character.inventory.slots[num].item);
+
+                            GameManager.character.gold += Data.itemData[i].price / 2;
+
+                        Console.Clear();
+                            Console.WriteLine("고물상 : 감사합니다잉~~~~");
+                            SellScreen();
+
+                            Console.WriteLine($"{Data.itemData[i].name}을 판매하였습니다");
+                                                        Console.WriteLine($"현재 소지금 : {GameManager.character.gold} ( +{Data.itemData[i].price / 2}원 )");
+                            Console.WriteLine();
+
+                            Console.WriteLine("1. 더 판매하기");
+                            Console.WriteLine("0. 나가기");
+                            Console.WriteLine();
+                            Console.Write(">> ");
+
+                            switch (GameManager.NextChoice(0, 1))
+                            {
+                                case 1:
+                                    Sell_Use();
+                                    break;
+                                case 0:
+                                    Sell();
+                                    break;
+                            }
+
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("아이템이 존재하지 않습니다.");
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("잘못된 입력입니다.");
+                        continue;
+                    }
+                }
+            }
+
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.Write(">> ");
+
+            switch (GameManager.NextChoice(0, 0))
+            {
+                case 0:
+                default:
+                    Sell();
+                    break;
+            }
+
+
+        }
+
+
+
+
+
+        static void SellScreen()
+        {
+            for (int i = 0; i < GameManager.character.inventory.slots.Length; i++)
+            {
+                if (GameManager.character.inventory.slots[i].item != null)
+                    Console.WriteLine($"{i + 1}. 판매가 : {GameManager.character.inventory.slots[i].item.price / 2}원 | {GameManager.character.inventory.slots[i].item.name} | 능력치 : {GameManager.character.inventory.slots[i].item.capacity} | {GameManager.character.inventory.slots[i].item.comment} | {GameManager.character.inventory.slots[i].count}개");
+                else
+                    Console.WriteLine($"{i + 1}. ");
+            }
+            Console.WriteLine("\n");
+
+        }
+
 
     }
 }
