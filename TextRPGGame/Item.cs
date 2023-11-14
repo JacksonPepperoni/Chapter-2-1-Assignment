@@ -22,6 +22,7 @@ namespace TextRPGGame
 
         public Data.EquipParts part; //나중에 장비클래스로옮기기
 
+        public int cap = 0; // 임시
 
         public void Setting(int idd, Item.Type typee, string namee, string comee, int pricc, bool over, int caaaaa)
         {
@@ -35,7 +36,7 @@ namespace TextRPGGame
         }
         public virtual bool Use()
         {
-           return false;
+            return false;
 
         } // 누른 인벤칸번호 보내기
     }
@@ -51,16 +52,21 @@ namespace TextRPGGame
             {
                 character.inventory.Delete(this);
                 character.inventory.Add(character.equip[(int)part]);
+
+                cap = 0;
+                cap = -character.equip[(int)part].capacity;
+                BuffUpdate(character.equip[(int)part]);
                 character.equip[(int)part] = this;
             }
-            else { 
+            else
+            {
 
-            character.equip[(int)part] = this;
-            character.inventory.Delete(this);
-
+                character.equip[(int)part] = this;
+                character.inventory.Delete(this);
             }
-            
-            BuffUpdate();
+            cap = 0;
+            cap = this.capacity;
+            BuffUpdate(this);
             return true;
         }
 
@@ -69,8 +75,12 @@ namespace TextRPGGame
         {
             if (character.inventory.Add(this)) // 인벤자리 없으면 못벗어!
             {
+
                 character.equip[(int)part] = null;
-                BuffUpdate();
+                cap = 0;
+                cap = -this.capacity;
+
+                BuffUpdate(this);
             }
             else
             {
@@ -78,37 +88,29 @@ namespace TextRPGGame
             }
         }
 
-        void BuffUpdate() // 스탯 적용 아예 다른 방법으로 할것 장비창에서 관리하는게 나을지도 지금은 스탯창에 적용된것처럼 보이기만하고 합쳐지진않았다. 풀피채웠을떄 버프로올라간 체력이 안참
+        void BuffUpdate(Item item) // 스탯 적용 아예 다른 방법으로 할것 장비창에서 관리하는게 나을지도 지금은 스탯창에 적용된것처럼 보이기만하고 합쳐지진않았다. 풀피채웠을떄 버프로올라간 체력이 안참
         {
-            character.atkBuff = 0;
-            character.defBuff = 0;
-            character.maxHpfBuff = 0;
-
-
-            for (int i = 0; i < character.equip.Length; i++)
+            switch (item.part)
             {
-                if (character.equip[i] != null)
-                {
-                    switch (character.equip[i].part)
-                    {
-                        case Data.EquipParts.무기:
-                            character.atkBuff += character.equip[i].capacity;
-                            break;
+                case Data.EquipParts.무기:
+                    character.atkBuff += cap;
+                    character.atk += cap;
+                    break;
 
-                        case Data.EquipParts.몸:
-                            character.defBuff += character.equip[i].capacity;
-                            break;
+                case Data.EquipParts.몸:
+                    character.defBuff += cap;
+                    character.def += cap;
+                    break;
 
-                        case Data.EquipParts.장신구:
-                            character.maxHpfBuff += character.equip[i].capacity;
-                            character.hp = (character.maxHp < character.hp) ? character.maxHp : character.hp;
-                            break;
-                    }
-                }
-
-
+                case Data.EquipParts.장신구:
+                    character.maxHpfBuff += cap;
+                    character.maxHp += cap;
+                    character.hp = (character.maxHp < character.hp) ? character.maxHp : character.hp;
+                    break;
 
             }
+
+            cap = 0;
         }
 
 

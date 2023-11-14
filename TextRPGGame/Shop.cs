@@ -137,6 +137,8 @@
         static void Open()
         {
             Console.Clear();
+            Console.WriteLine("~~~~ 장비상점 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("대장장이 : 힘썌고 강한 아침. 크고 아름다운 장비를 팔고있지");
             Screen();
 
@@ -160,7 +162,9 @@
 
         static void BuyLoop() // 상점 구매 판매는 어차피 다 똑같으니까 우려먹어도될듯 델리게이트만들어서 함수도 다르게 실행시키자
         {
-            Console.Clear();
+            Console.Clear(); 
+            Console.WriteLine("~~~~ 장비상점 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("대장장이 : 어디 원하는걸 골라보슈!");
             Screen();
 
@@ -202,6 +206,8 @@
                                     itemCatalog[num].item = null;
 
                                 Console.Clear();
+                                Console.WriteLine("~~~~ 장비상점 ~~~~");
+                                Console.WriteLine();
                                 Console.WriteLine("대장장이 : 감사합니다 손님!!!!");
 
                                 Screen();
@@ -228,6 +234,8 @@
                             else
                             {
                                 Console.Clear();
+                                Console.WriteLine("~~~~ 장비상점 ~~~~");
+                                Console.WriteLine();
                                 Console.WriteLine("대장장이 : 돈이 부족하잖아 이녀석아!");
                                 Screen();
                                 break;
@@ -235,7 +243,6 @@
                         }
                         else
                         {
-                            Console.WriteLine("\n");
                             Console.WriteLine("아이템이 존재하지 않습니다.");
                             continue;
                         }
@@ -268,6 +275,8 @@
         static public void Sell() // 내템 판매화면 실험용
         {
             Console.Clear();
+            Console.WriteLine("~~~~ 고물상 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("고물상 : 아무 물건이나 싸게싸게 받습니다 급처템 삽니다");
             SellScreen();
 
@@ -292,6 +301,8 @@
         static public void Sell_Use()
         {
             Console.Clear();
+            Console.WriteLine("~~~~ 고물상 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("고물상 : 아무 물건이나 싸게싸게 받습니다 급처템 삽니다");
             SellScreen();
 
@@ -320,6 +331,8 @@
                             GameManager.character.gold += Data.itemData[i].price / 2;
 
                         Console.Clear();
+                            Console.WriteLine("~~~~ 고물상 ~~~~");
+                            Console.WriteLine();
                             Console.WriteLine("고물상 : 감사합니다잉~~~~");
                             SellScreen();
 
@@ -374,11 +387,11 @@
         }
 
 
-
-
-
         static void SellScreen()
         {
+            Console.WriteLine();
+            Console.WriteLine();
+
             for (int i = 0; i < GameManager.character.inventory.slots.Length; i++)
             {
                 if (GameManager.character.inventory.slots[i].item != null)

@@ -4,10 +4,8 @@
     {
         public static Character character; // 현재 캐릭터           
 
-
         // 마을 스크립트별로 나눌것, 같은 공간 이름통일
 
-        static int cost; // 돈 거래할때끄는 변수. 선택지 여러개일땐 안좋은듯. 상점같은곳. 변수를 쓰긴 써야한다 오타방지로. 배열로쓸까?
         static void Main()
         {
             Data.Init(); // 게임데이터 추가
@@ -18,7 +16,7 @@
             Console.Clear();
             Console.WriteLine(" ~~~ 텍스트 RPG 게임 테스트테스트 ~~~ ");
             Console.WriteLine("\n");
-            Thread.Sleep(1000);  // 1초 대기
+           // Thread.Sleep(1000);  // 1초 대기
 
 
             Console.WriteLine("1.처음부터");
@@ -74,7 +72,6 @@
 
             character.name = name;
         }
-
 
         public static void Map_Village()
         {
@@ -143,9 +140,9 @@
             Console.WriteLine($"이 름 : {character.name}");
             Console.WriteLine($"레 벨 : {character.level}");
             Console.WriteLine($"직 업 : {character.job.ToString()}");
-            Console.WriteLine($"공격력 : {character.atk + character.atkBuff} (+{character.atkBuff})");
-            Console.WriteLine($"방어력 : {character.def + character.defBuff} (+{character.defBuff})");
-            Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp + character.maxHpfBuff} (+{character.maxHpfBuff})");
+            Console.WriteLine($"공격력 : {character.atk} (+{character.atkBuff})");
+            Console.WriteLine($"방어력 : {character.def} (+{character.defBuff})");
+            Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp} (+{character.maxHpfBuff})");
             Console.WriteLine($"마 나 / 최대치 : {character.mp} / {character.maxMp}");
             Console.WriteLine($"경험치 : {character.exp}exp");
             Console.WriteLine();
@@ -277,7 +274,7 @@
                     {
                         if (character.inventory.Use(num))
                         {
-                            Inventory_Use();
+                            Inventory();
                             break;
                         }
                     }
@@ -294,7 +291,8 @@
         static void Map_HeadmanHouse() // 촌장집
         {
             Console.Clear();
-
+            Console.WriteLine("~~~~ 촌장집 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("촌장 : 어서오게 젊은이 들어올땐 마음대로지만 나갈때도 마음대로란다.");
             Console.WriteLine("\n");
 
@@ -315,6 +313,8 @@
         {
             SaveManager.Save();
             Console.Clear();
+            Console.WriteLine("~~~~ 여관 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("저장되었습니다");
 
             Console.WriteLine("\n");
@@ -334,15 +334,15 @@
         static void Map_Restaurant() // 식당
         {
             Console.Clear();
-
+            Console.WriteLine("~~~~ 르탄진사갈비 ZEP점 ~~~~");
+            Console.WriteLine();
             Console.WriteLine("르탄진사갈비점원 : 200원에 무한리필로 즐길 수 있습니다!");
             Console.WriteLine("\n");
             Console.WriteLine($"현재 소지금 : {character.gold} ");
             Console.WriteLine();
 
-            cost = -200;
 
-            Console.WriteLine($"1.이용한다 ({cost}원 소모.)");
+            Console.WriteLine($"1.이용한다 ({-200}원 소모.)");
             Console.WriteLine("0.나가기");
             Console.WriteLine();
             Console.Write(">> ");
@@ -350,7 +350,7 @@
             switch (NextChoice(0, 1))
             {
                 case 1:
-                    Map_Restaurant_Use(character.Wallet(cost));
+                    Map_Restaurant_Use(character.Wallet(-200));
                     break;
                 case 0:
                 default:
@@ -366,16 +366,19 @@
             if (ok)
             {
                 character.hp = character.maxHp;
-                character.mp = character.maxMp;
+                character.mp = character.maxMp; 
+                Console.WriteLine("~~~~ 르탄진사갈비 ZEP점 ~~~~");
+                Console.WriteLine();
                 Console.WriteLine("르탄진사갈비점원 : 또 방문해주세요!");
                 Console.WriteLine();
                 Console.WriteLine("체력과 마나가 모두 회복되었습니다.");
-                Console.WriteLine($"현재 소지금 : {character.gold} ( {cost}원 )");
-               
+                Console.WriteLine($"현재 소지금 : {character.gold} ( {-200}원 )");
                
             }
             else
             {
+                Console.WriteLine("~~~~ 르탄진사갈비 ZEP점 ~~~~");
+                Console.WriteLine();
                 Console.WriteLine("르탄진사갈비점원 : 돈이 부족하시다구요...? 다음에 다시 찾아주세요!!");
             }
 
