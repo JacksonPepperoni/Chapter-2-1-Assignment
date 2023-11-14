@@ -4,16 +4,10 @@ namespace TextRPGGame
 {
     public class Character
     {
-        // hp나 exp같은거 전부 프로퍼티로만들고 자기안에서 최소 최대값 계산. 프로퍼티는 bool 반환못해?
+        public Inventory inventory; // 인벤토리
 
-        public enum EquipParts
-        {
-            무기,
-            몸,
-            장신구
-        }
-        public Item[] equip; //착용중인템 (int)enum으로 자리확인
-        public InventorySlot[] inventory;
+        // hp나 exp같은거 전부 프로퍼티로만들고 자기안에서 최소 최대값 계산. 프로퍼티는 bool 반환못해?
+        public Equipment[] equip; //착용중인템 (int)enum으로 자리확인
 
         public string name;
         public int level;
@@ -31,16 +25,14 @@ namespace TextRPGGame
 
         public Data.Jobs job;
 
-        public int slotCount;
-        public int maxSlot; // 인벤토리 크기
-
         public int atkBuff; // 장비 버프용
         public int defBuff;
         public int maxHpfBuff;
 
-
-        public void DefaultSetting()
+        public Character()
         {
+            name = "";
+
             job = Data.Jobs.전사; // 직업마다 기본값 달라지도록
 
             level = 1;
@@ -56,95 +48,15 @@ namespace TextRPGGame
             gold = 1500;
             exp = 0;
 
-            slotCount = 0;
-            maxSlot = 10;
-
-            atkBuff = 0; 
+            atkBuff = 0;
             defBuff = 0;
             maxHpfBuff = 0;
 
+            equip = new Equipment[Enum.GetValues(typeof(Data.EquipParts)).Length];
 
-            inventory = new InventorySlot[maxSlot];
-            equip = new Item[Enum.GetValues(typeof(EquipParts)).Length];
-
-            for (int i = 0; i < inventory.Length; i++)
-            {
-                InventorySlot inventorySlot = new InventorySlot();
-                inventory[i] = inventorySlot;
-            }
-        }
-
-
-
-        public bool AddItem(Item item) //인벤토리에 추가
-        {
-            if (slotCount < maxSlot)
-            {
-                if (item.isOverlap)
-                {
-                    for (int i = 0; i < inventory.Length; i++)
-                    {
-                        if (inventory[i].item != null && inventory[i].item.id == item.id && item.isOverlap)
-                        {
-                            inventory[i].count++;
-                            return true;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < inventory.Length; i++)
-                {
-                    if (inventory[i].item == null)
-                    {
-                        inventory[i].item = item;
-                        inventory[i].count++;
-                        slotCount++;
-                        break;
-                    }
-                }
-
-                return true;
-            }
-            else // 인벤 공간부족
-            {
-                return false;
-            }
-        }
-
-        public bool DeleteItem(int num) //인벤토리에서 삭제
-        {
-            if (inventory[num].item != null)
-            {
-                inventory[num].count--;
-
-                if (inventory[num].count <= 0)
-                {
-                    inventory[num].item = null;
-                    inventory[num].count = 0;
-                    slotCount--;
-                }
-
-                return true;
-            }
-
-            return false;
+            inventory = new Inventory();
 
         }
-
-        public bool UseItem(int num) // 인벤토리에서 사용
-        {
-            if (inventory[num].item != null)
-            {
-                if (inventory[num].item.Use(num))
-                    return DeleteItem(num);
-                else
-                    return false;
-            }
-
-            return false;
-        }
-
-
 
         public bool Wallet(int money)  // 매개변수 : +금액 or -금액   얻는돈 소비한돈 다 Wallet이 관리. 프로퍼티로 만들까...?
         {

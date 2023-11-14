@@ -1,6 +1,9 @@
-﻿namespace TextRPGGame
+﻿using System;
+using static TextRPGGame.GameManager;
+
+namespace TextRPGGame
 {
-    public abstract class Item // 모든 아이템이 상속받아야한다.
+    public class Item // 모든 아이템이 상속받아야한다.
     {
         public enum Type
         {
@@ -17,7 +20,7 @@
 
         public int capacity; // 회복량 뎀증 수치 임시
 
-        public Character.EquipParts part; //나중에 장비클래스로옮기기
+        public Data.EquipParts part; //나중에 장비클래스로옮기기
 
 
         public void Setting(int idd, Item.Type typee, string namee, string comee, int pricc, bool over, int caaaaa)
@@ -30,115 +33,100 @@
             isOverlap = over;
             capacity = caaaaa;
         }
-        public abstract bool Use(int num); // 누른 인벤칸번호 보내기
-    }
+        public virtual bool Use()
+        {
+           return false;
 
+        } // 누른 인벤칸번호 보내기
+    }
 
     public class Equipment : Item
     {
-
-        public override bool Use(int num)
+        public override bool Use()
         {
-            // 전투중이 아닐때만 가능하게
+            //전투중이면 장비바꾸기불가
+            // 착용제한있는 템생기면 여기 전부 바꿔야함
 
-            if (GameManager.character.equip[(int)part] == null)
+            if (character.equip[(int)part] != null)
             {
-                GameManager.character.equip[(int)part] = this;
-                GameManager.character.DeleteItem(num);
+                character.inventory.Delete(this);
+                character.inventory.Add(character.equip[(int)part]);
+                character.equip[(int)part] = this;
+            }
+            else { 
+
+            character.equip[(int)part] = this;
+            character.inventory.Delete(this);
+
+            }
+            
+            BuffUpdate();
+            return true;
+        }
 
 
-                switch (part)
-                {
-                    case Character.EquipParts.무기:
-                        GameManager.character.atkBuff += capacity;
-                        GameManager.character.atk += capacity;
-                        break;
-
-                    case Character.EquipParts.몸:
-                        GameManager.character.defBuff += capacity;
-                        GameManager.character.def += capacity;
-                        break;
-
-                    case Character.EquipParts.장신구:
-                        GameManager.character.maxHpfBuff += capacity;
-                        GameManager.character.maxHp += capacity;
-                        break;
-                }
-
+        public void TakeOff() // 벗기
+        {
+            if (character.inventory.Add(this)) // 인벤자리 없으면 못벗어!
+            {
+                character.equip[(int)part] = null;
+                BuffUpdate();
             }
             else
             {
-                switch (part)
-                {
-                    case Character.EquipParts.무기:
-                        GameManager.character.atkBuff += capacity;
-                        GameManager.character.atk += capacity;
-                        break;
-
-                    case Character.EquipParts.몸:
-                        GameManager.character.defBuff += capacity;
-                        GameManager.character.def += capacity;
-                        break;
-
-                    case Character.EquipParts.장신구:
-                        GameManager.character.maxHpfBuff += capacity;
-                        GameManager.character.maxHp += capacity;
-                        break;
-                }
-
-                switch (GameManager.character.equip[(int)part].part) // 능력치 업다운
-                {
-                    case Character.EquipParts.무기:
-                        GameManager.character.atkBuff -= GameManager.character.equip[(int)part].capacity;
-                        GameManager.character.atk -= GameManager.character.equip[(int)part].capacity;
-                        break;
-
-                    case Character.EquipParts.몸:
-                        GameManager.character.defBuff -= GameManager.character.equip[(int)part].capacity;
-                        GameManager.character.def -= GameManager.character.equip[(int)part].capacity;
-                        break;
-
-                    case Character.EquipParts.장신구:
-                        GameManager.character.maxHpfBuff -= GameManager.character.equip[(int)part].capacity;
-                        GameManager.character.maxHp -= GameManager.character.equip[(int)part].capacity;
-
-                        if (GameManager.character.maxHp < GameManager.character.hp)
-                        { GameManager.character.hp = GameManager.character.maxHp; }
-                        break;
-                }
-
-
-                GameManager.character.DeleteItem(num);
-                GameManager.character.AddItem(GameManager.character.equip[(int)part]);
-                GameManager.character.equip[(int)part] = this;
+                Console.WriteLine("인벤토리 공간이 부족합니다");
             }
-
-            return true;
         }
+
+        void BuffUpdate() // 스탯 적용 아예 다른 방법으로 할것 장비창에서 관리하는게 나을지도 지금은 스탯창에 적용된것처럼 보이기만하고 합쳐지진않았다. 풀피채웠을떄 버프로올라간 체력이 안참
+        {
+
+            for (int i = 0; i < Enum.GetValues(typeof(Data.EquipParts)).Length; i++)
+            {
+                if (character.equip[i] != null)
+                {
+                    switch (character.equip[i].part)
+                    {
+                        case Data.EquipParts.무기:
+                            character.atkBuff = 0;
+                            character.atkBuff += character.equip[i].capacity;
+                            break;
+
+                        case Data.EquipParts.몸:
+                            character.defBuff = 0;
+                            character.defBuff += character.equip[i].capacity;
+                            break;
+
+                        case Data.EquipParts.장신구:
+                            character.maxHpfBuff = 0;
+                            character.maxHpfBuff += character.equip[i].capacity;
+                            character.hp = (character.maxHp < character.hp) ? character.maxHp : character.hp;
+                            break;
+                    }
+                }
+
+
+
+            }
+        }
+
+
     }
-
-
     public class Consumable : Item
     {
-        public override bool Use(int num)
+        public override bool Use()
         {
-            GameManager.character.hp = ((GameManager.character.hp += capacity) > GameManager.character.maxHp) ? GameManager.character.maxHp : GameManager.character.hp;
-
+            character.hp = ((character.hp += capacity) > character.maxHp) ? character.maxHp : character.hp;
             // 아이템능력 반영시키기 현재 모든 회복템은 hp회복만됨
-            return GameManager.character.DeleteItem(num);
+            return true;
         }
     }
 
     public class BasicItem : Item //잡템 사용 못함
     {
-        public override bool Use(int num)
+        public override bool Use()
         {
-            // 사용하깅벗는 잡템
-            return true;
+            return base.Use();
         }
     }
-
-
-
 }
-

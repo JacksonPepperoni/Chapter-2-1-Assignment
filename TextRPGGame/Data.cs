@@ -5,10 +5,12 @@ namespace TextRPGGame
 {
     public static class Data
     {
-
-        // 수정 금지 -------------
-        // 전부 get; private set; 할 방법 없나
-
+        public enum EquipParts
+        {
+            무기,
+            몸,
+            장신구
+        }
         public enum Jobs
         {
             전사,
@@ -40,14 +42,14 @@ namespace TextRPGGame
                         string line = sr.ReadLine();
                         string[] data = line.Split(',');
 
-                        if (data.Length == 0) { continue; }
+                        if (data.Length == 0) { continue; } // 헤더 넘기기
 
                         switch (data[1])
                         {
                             case "장비":
                                 Equipment item1 = new Equipment();
                                 item1.Setting(int.Parse(data[0]), Item.Type.장비, data[3], data[4], int.Parse(data[5]), data[6] == "TRUE" ? true : false, int.Parse(data[7]));
-                                item1.part = (Character.EquipParts)int.Parse(data[2]);
+                                item1.part = (EquipParts)int.Parse(data[2]);
                                 itemData.Add(item1.id, item1);
                                 break;
 
@@ -67,7 +69,6 @@ namespace TextRPGGame
                         // for문으로 계속 추가. id가 키값.
                         //    data[2] = 세부파츠 있는거 없는거 체크
                         // 카테고리 enum도 숫자로 적어야할듯
-                        // 코드중복들 하나로 못하나?
                     }
 
                 }

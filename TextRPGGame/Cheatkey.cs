@@ -34,7 +34,7 @@
                 {
                     if (Data.itemData.ContainsKey(num))
                     {
-                        GameManager.character.AddItem(Data.itemData[num]);
+                        GameManager.character.inventory.Add(Data.itemData[num]);
                         break;
                     }
                     else

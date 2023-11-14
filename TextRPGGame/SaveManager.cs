@@ -8,8 +8,8 @@ namespace TextRPGGame
 
         /*
             static string[] path = new string[] {
-        "C:\\Users\\nabida\\Documents\\save1.csv",
-        "C:\\Users\\nabida\\Documents\\save2.csv"
+        "C:\\Users\\유저명\\Documents\\save1.csv",
+        "C:\\Users\\유저명\\Documents\\save2.csv"
          };
         
         세이브슬록 여러개 만드려면 배열로만들고 슬롯넘버넣을것
@@ -57,8 +57,7 @@ namespace TextRPGGame
 
                         for (int i = 0; i < data.Length; i++)
                         {
-                            GameManager.character.DefaultSetting(); // 임시. 이름만 저장됨
-                            GameManager.character.name = data[i];
+                            GameManager.character.name = data[i]; // 임시. 이름만 저장됨
 
                         }
 

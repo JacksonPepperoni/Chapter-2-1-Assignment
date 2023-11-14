@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.IO;
-using static TextRPGGame.Character;
-
-namespace TextRPGGame
+﻿namespace TextRPGGame
 {
     internal class GameManager
     {
         public static Character character; // 현재 캐릭터           
 
+
         // 마을 스크립트별로 나눌것, 같은 공간 이름통일
 
         static int cost; // 돈 거래할때끄는 변수. 선택지 여러개일땐 안좋은듯. 상점같은곳. 변수를 쓰긴 써야한다 오타방지로. 배열로쓸까?
-
         static void Main()
         {
             Data.Init(); // 게임데이터 추가
@@ -21,10 +15,11 @@ namespace TextRPGGame
 
             character = new Character();
 
-            //  Console.Clear();
-            Console.WriteLine("텍스트 RPG 게임 테스트테스트");
-
+            Console.Clear();
+            Console.WriteLine(" ~~~ 텍스트 RPG 게임 테스트테스트 ~~~ ");
             Console.WriteLine("\n");
+    
+
             Console.WriteLine("1.처음부터");
 
             if ((File.Exists(SaveManager.path))) // 세이브데이터 있을때 불러오기 활성화
@@ -60,7 +55,6 @@ namespace TextRPGGame
             }
         }
 
-
         public static void CharacterGenerate()
         {
             Console.Clear();
@@ -77,7 +71,6 @@ namespace TextRPGGame
                 Console.WriteLine("10글자 이내로 적어주세요.");
             }
 
-            character.DefaultSetting();
             character.name = name;
         }
 
@@ -94,7 +87,7 @@ namespace TextRPGGame
             Console.WriteLine("1.촌장집");
             Console.WriteLine("2.여관 (닉네임만 저장)");
             Console.WriteLine("3.장비상점");
-           // Console.WriteLine("4.약국");
+            Console.WriteLine("4.약국");
             Console.WriteLine("5.식당");
 
             Console.WriteLine("\n");
@@ -105,7 +98,6 @@ namespace TextRPGGame
             Console.WriteLine("8.치트 - 돈 치트");
             Console.WriteLine("9.치트 - 템 치트");
 
-
             Console.WriteLine();
             Console.Write(">> ");
 
@@ -115,11 +107,14 @@ namespace TextRPGGame
                     Map_HeadmanHouse();
                     break;
                 case 2:
-                    Save_Use();
+                    Save();
                     break;
                 case 3:
-                    Shop.Shop_Epuip();
+                    Shop.Visit(Shop.ShopName.장비상점);
                     break;
+               // case 4:
+                //    Shop.Visit(Shop.ShopName.물약상점);
+                //    break;
                 case 5:
                     Map_Restaurant();
                     break;
@@ -138,11 +133,8 @@ namespace TextRPGGame
             }
         }
 
-
-
         static void Status()
         {
-            
             Console.Clear();
 
             Console.WriteLine("[    캐릭터 정보    ]");
@@ -150,13 +142,13 @@ namespace TextRPGGame
             Console.WriteLine($"이 름 : {character.name}");
             Console.WriteLine($"레 벨 : {character.level}");
             Console.WriteLine($"직 업 : {character.job.ToString()}");
-            Console.WriteLine($"공격력 : {character.atk} (+{character.atkBuff})"); 
-            Console.WriteLine($"방어력 : {character.def} (+{character.defBuff})");
-            Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp} (+{character.maxHpfBuff})");
+            Console.WriteLine($"공격력 : {character.atk + character.atkBuff} (+{character.atkBuff})");
+            Console.WriteLine($"방어력 : {character.def + character.defBuff} (+{character.defBuff})");
+            Console.WriteLine($"체 력 / 최대치 : {character.hp} / {character.maxHp + character.maxHpfBuff} (+{character.maxHpfBuff})");
             Console.WriteLine($"마 나 / 최대치 : {character.mp} / {character.maxMp}");
             Console.WriteLine($"경험치 : {character.exp}exp");
+            Console.WriteLine();
             Console.WriteLine($"소지금 : {character.gold}원");
-
 
             Console.WriteLine("\n");
             Console.WriteLine("0.나가기");
@@ -170,13 +162,10 @@ namespace TextRPGGame
                     Map_Village();
                     break;
             }
-
         }
-        static void Inventory()
+        static void InventoryScreen()
         {
             Console.Clear();
-
-
             Console.WriteLine("[    장비창    ]");
             Console.WriteLine();
 
@@ -184,34 +173,43 @@ namespace TextRPGGame
             {
                 if (character.equip[i] != null)
                 {
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.equip[i].capacity}상승");
+                    Console.WriteLine($"{((Data.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.equip[i].capacity}상승");
                 }
                 else
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");
+                    Console.WriteLine($"{((Data.EquipParts)i).ToString()} : ");
             }
 
             Console.WriteLine("\n");
             Console.WriteLine("[    인벤토리    ]");
             Console.WriteLine();
 
-            for (int i = 0; i < character.inventory.Length; i++)
-            {
-                if (character.inventory[i].item != null)
-                    Console.WriteLine($"{character.inventory[i].item.name} | 능력치 {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
-                else
-                    Console.WriteLine($"------------------------------------");
-            }
 
+            for (int i = 0; i < character.inventory.slots.Length; i++)
+            {
+                if (character.inventory.slots[i].item != null)
+                    Console.WriteLine($"{i + 1}. {character.inventory.slots[i].item.name} | {character.inventory.slots[i].item.capacity} | {character.inventory.slots[i].item.comment} | {character.inventory.slots[i].item.price}원 | {character.inventory.slots[i].count}개");
+                else
+                    Console.WriteLine($"{i + 1}. ");
+            }
             Console.WriteLine("\n");
+        }
+        public static void Inventory()
+        {
+            InventoryScreen();
+
             Console.WriteLine("1.아이템 사용 & 장착");
+            Console.WriteLine("2.장비 해제");
             Console.WriteLine("0.나가기");
             Console.WriteLine();
             Console.Write(">> ");
 
-            switch (NextChoice(0, 1))
+            switch (NextChoice(0, 2))
             {
                 case 1:
                     Inventory_Use();
+                    break;
+                case 2:
+                    Equip_Use();
                     break;
                 case 0:
                     Map_Village();
@@ -219,36 +217,46 @@ namespace TextRPGGame
             }
         }
 
+        static void Equip_Use()
+        {
+            InventoryScreen();
+
+            Console.WriteLine("착용을 해제할 장비 번호를 입력해주세요");
+            Console.WriteLine("1.머리 2.몸 3.악세");
+            Console.WriteLine("0.나가기");
+            Console.WriteLine();
+
+            Console.Write(">> ");
+            switch (NextChoice(0, 3))
+            {
+                case 1:
+                    if (character.equip[0] != null)
+                        character.equip[0].TakeOff();
+                    Equip_Use();
+                    break;
+                case 2:
+                    if (character.equip[1] != null)
+                        character.equip[1].TakeOff();
+                    Equip_Use();
+
+                    break;
+                case 3:
+                    if (character.equip[2] != null)
+                        character.equip[2].TakeOff();
+                    Equip_Use();
+                    break;
+                case 0:
+                default:
+                    Map_Village();
+                    break;
+            }
+
+        }
+
         static void Inventory_Use()
         {
-            Console.Clear();
+            InventoryScreen();
 
-            Console.WriteLine("[    장비창    ]");
-            Console.WriteLine();
-
-            for (int i = 0; i < character.equip.Length; i++)
-            {
-                if (character.equip[i] != null)
-                {
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.equip[i].capacity}상승");
-                }
-                else
-                    Console.WriteLine($"{((Character.EquipParts)i).ToString()} : ");
-            }
-
-            Console.WriteLine("\n");
-            Console.WriteLine("[    인벤토리    ]");
-            Console.WriteLine();
-
-            for (int i = 0; i < character.inventory.Length; i++)
-            {
-                if (character.inventory[i].item != null)
-                    Console.WriteLine($"{i + 1}. {character.inventory[i].item.name} | 능력치 {character.inventory[i].item.capacity}상승 | {character.inventory[i].item.comment} | {character.inventory[i].item.price}원 | {character.inventory[i].count}개");
-                else
-                    Console.WriteLine($"{i + 1}. ------------------------------------");
-            }
-
-            Console.WriteLine("\n");
             Console.WriteLine("사용할 아이템 번호를 입력해주세요");
             Console.WriteLine("0.나가기");
             Console.WriteLine();
@@ -265,20 +273,16 @@ namespace TextRPGGame
                         break;
                     }
 
-                    if (num < character.inventory.Length)
+                    if (num < character.inventory.slots.Length)
                     {
-                        if (character.inventory[num].item != null)
+                        if (character.inventory.Use(num))
                         {
-                            if (character.inventory[num].item.Use(num))
-                            {
-                                Inventory();
-                                break;
-                            }
+                            Inventory();
+                            break;
                         }
                     }
 
                     Console.WriteLine("아이템이 존재하지 않습니다.");
-
                 }
                 else
                 {
@@ -286,7 +290,6 @@ namespace TextRPGGame
                 }
             }
         }
-
 
         static void Map_HeadmanHouse() // 촌장집
         {
@@ -306,11 +309,9 @@ namespace TextRPGGame
                     Map_Village();
                     break;
             }
-
         }
 
-
-        static void Save_Use()
+        static void Save()
         {
             SaveManager.Save();
             Console.Clear();
@@ -328,9 +329,7 @@ namespace TextRPGGame
                     Map_Village();
                     break;
             }
-
         }
-
 
         static void Map_Restaurant() // 식당
         {
@@ -394,7 +393,6 @@ namespace TextRPGGame
             }
         }
 
-
         public static int NextChoice(int min, int max) // 최대값 포함됨
         {
             while (true)
@@ -409,7 +407,5 @@ namespace TextRPGGame
             }
         }
     }
-
-
 }
 
