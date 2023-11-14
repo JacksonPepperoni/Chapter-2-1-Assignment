@@ -79,7 +79,7 @@
             for (int i = 0; i < itemCatalog.Length; i++)
             {
                 if (itemCatalog[i].item != null)
-                    Console.WriteLine($"{i+1}. {(itemCatalog[i].item.part).ToString()} | {itemCatalog[i].item.name} | {itemCatalog[i].item.capacity}상승 | {itemCatalog[i].item.comment} | {itemCatalog[i].item.price}원 | {itemCatalog[i].count}개");
+                    Console.WriteLine($"{i+1}. {(itemCatalog[i].item.part).ToString()} | {itemCatalog[i].item.name} | 능력치 : {itemCatalog[i].item.capacity} | {itemCatalog[i].item.comment} | {itemCatalog[i].item.price}원 | {itemCatalog[i].count}개");
                 else
                     Console.WriteLine($"{i+1}. -----------------------  품절  -----------------------");
             }

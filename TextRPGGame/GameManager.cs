@@ -87,7 +87,7 @@
             Console.WriteLine("1.촌장집");
             Console.WriteLine("2.여관 (닉네임만 저장)");
             Console.WriteLine("3.장비상점");
-            Console.WriteLine("4.약국");
+            Console.WriteLine("4.약국 (미완성. 장비상점열립니다)");
             Console.WriteLine("5.식당");
 
             Console.WriteLine("\n");
@@ -112,9 +112,9 @@
                 case 3:
                     Shop.Visit(Shop.ShopName.장비상점);
                     break;
-               // case 4:
-                //    Shop.Visit(Shop.ShopName.물약상점);
-                //    break;
+                case 4:  Shop.Visit(Shop.ShopName.장비상점);
+                    //    Shop.Visit(Shop.ShopName.물약상점);
+                    break;
                 case 5:
                     Map_Restaurant();
                     break;
@@ -173,7 +173,7 @@
             {
                 if (character.equip[i] != null)
                 {
-                    Console.WriteLine($"{((Data.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 {character.equip[i].capacity}상승");
+                    Console.WriteLine($"{((Data.EquipParts)i).ToString()} : {character.equip[i].name} | 능력치 : {character.equip[i].capacity}");
                 }
                 else
                     Console.WriteLine($"{((Data.EquipParts)i).ToString()} : ");
@@ -187,7 +187,7 @@
             for (int i = 0; i < character.inventory.slots.Length; i++)
             {
                 if (character.inventory.slots[i].item != null)
-                    Console.WriteLine($"{i + 1}. {character.inventory.slots[i].item.name} | {character.inventory.slots[i].item.capacity} | {character.inventory.slots[i].item.comment} | {character.inventory.slots[i].item.price}원 | {character.inventory.slots[i].count}개");
+                    Console.WriteLine($"{i + 1}. {character.inventory.slots[i].item.name} | 능력치 : {character.inventory.slots[i].item.capacity} | {character.inventory.slots[i].item.comment} | {character.inventory.slots[i].item.price}원 | {character.inventory.slots[i].count}개");
                 else
                     Console.WriteLine($"{i + 1}. ");
             }

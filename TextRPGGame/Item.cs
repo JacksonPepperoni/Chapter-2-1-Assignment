@@ -80,25 +80,26 @@ namespace TextRPGGame
 
         void BuffUpdate() // 스탯 적용 아예 다른 방법으로 할것 장비창에서 관리하는게 나을지도 지금은 스탯창에 적용된것처럼 보이기만하고 합쳐지진않았다. 풀피채웠을떄 버프로올라간 체력이 안참
         {
+            character.atkBuff = 0;
+            character.defBuff = 0;
+            character.maxHpfBuff = 0;
 
-            for (int i = 0; i < Enum.GetValues(typeof(Data.EquipParts)).Length; i++)
+
+            for (int i = 0; i < character.equip.Length; i++)
             {
                 if (character.equip[i] != null)
                 {
                     switch (character.equip[i].part)
                     {
                         case Data.EquipParts.무기:
-                            character.atkBuff = 0;
                             character.atkBuff += character.equip[i].capacity;
                             break;
 
                         case Data.EquipParts.몸:
-                            character.defBuff = 0;
                             character.defBuff += character.equip[i].capacity;
                             break;
 
                         case Data.EquipParts.장신구:
-                            character.maxHpfBuff = 0;
                             character.maxHpfBuff += character.equip[i].capacity;
                             character.hp = (character.maxHp < character.hp) ? character.maxHp : character.hp;
                             break;
