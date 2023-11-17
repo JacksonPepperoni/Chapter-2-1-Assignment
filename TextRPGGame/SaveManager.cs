@@ -28,8 +28,7 @@ namespace TextRPGGame
 
          */
 
-        public static string path = "save.csv";
-
+        public static string path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent + "\\CSV\\save.csv"; //파일경로
         public static void Save()
         {
             using (StreamWriter sw = new StreamWriter(new FileStream(path, FileMode.Create)))

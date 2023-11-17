@@ -60,7 +60,6 @@ namespace TextRPGGame
             }
             else
             {
-
                 character.equip[(int)part] = this;
                 character.inventory.Delete(this);
             }

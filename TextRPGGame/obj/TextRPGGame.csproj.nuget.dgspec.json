@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj": {}
+    "D:\\Workspace\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj": {
+    "D:\\Workspace\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
+        "projectUniqueName": "D:\\Workspace\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
         "projectName": "TextRPGGame",
-        "projectPath": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
+        "projectPath": "D:\\Workspace\\sparta_RPG\\TextRPGGame\\TextRPGGame.csproj",
         "packagesPath": "C:\\Users\\nabida\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nabida\\Documents\\GitHub\\sparta_RPG\\TextRPGGame\\obj\\",
+        "outputPath": "D:\\Workspace\\sparta_RPG\\TextRPGGame\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nabida\\AppData\\Roaming\\NuGet\\NuGet.Config",

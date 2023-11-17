@@ -23,9 +23,7 @@ namespace TextRPGGame
 
         // csv 파일 읽고 게임 모든 템 딕셔너리에 전부 추가해야함.
 
-
-        public static string path = "ItemData.csv";
-
+        public static string path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent + "\\CSV\\ItemData.csv"; //파일경로
 
         public static void Init()
         {

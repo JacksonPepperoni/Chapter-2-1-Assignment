@@ -20,9 +20,7 @@ namespace TextRPGGame
             }
         }
 
-
         //★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-
 
         public bool Add(Item item) // 인벤에 아이템추가
         {
